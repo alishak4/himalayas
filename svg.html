@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v6.js"> </script>
+<div id="chart"> 
+
+    <script>
+        //set the dimensions and margins of the graph
+        const margin = {top: 50, right: 50, bottom: 50, left:50},
+        width = 800 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
+
+        const svg = d3.select("#chart")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+        // Read the data
+        d3.csv("global_development_filtered.csv", function(d){
+            return {
+                country: d["Country"],
+                birth: +d['Data.Health.Birth Rate'],
+                death: +d['Data.Health.Death Rate'],
+                population: +d['Data.Health.Total Population']
+            };
+        }) .then(function(data){
+            console.log(data);
+
+            // Add X axis
+            const x = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.birth)])
+                .range([0, width]);
+
+            svg.append("g")
+            .attr("transform", `translate(0, ${height})`)
+            .call(d3.axisBottom(x));
+
+            // Add Y axis
+            const y = d3.scaleLinear()
+            .domain([d3.max(data, d => d.death), 0])
+            .range([0, height])
+
+            svg.append("g")
+            .call(d3.axisLeft(y));
+
+            // Add colour scale
+            const color = d3.scaleSequential()
+                .domain(d3.extent(data, d => d.population))
+                .interpolator(d3.interpolateViridis)
+
+            // Add dots
+            svg.append('g')
+                .selectAll("dot")
+                .data(data)
+                .join("circle")
+                .attr("r", 5)
+                .attr("cx", function (d) {return x(d.birth); } )
+                .attr("cy", function (d) {return y(d.death); })
+                // .style("fill", "lightblue")
+                .attr("fill", function(d) {return color(d.population); })
+
+        })
+
+
+    </script>
+
+
+
+</div>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://unpkg.com/intersection-observer"></script>
+	<script src="https://unpkg.com/scrollama"></script>
+	<title>Himalayas</title>
+
+
+	<style type="text/css">
+		h2{
+			font-family: sans-serif;
+			text-align: center;
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+			font-family: sans-serif;
+			color: #555;
+			background-color: #fff;
+			font-size: 1.4em;
+		}
+		section{
+			height: 80%;
+		}
+		div{
+			height: 70%;
+			max-width: 500px;
+			margin: 5px auto;
+			/* text-align: center; */
+			padding: 5px;
+		}
+		div.step{
+			background: #fff;
+			color: #fff;
+		}
+		div.step.active{
+
+			background-image: url('pitch1.png');
+			background-size: contain;
+			background-position: left center;
+			transition: 1s linear all;
+			background-repeat: no-repeat;
+
+			/* background-image: url('pitch1.png');
+			background-size: contain;
+			background-position: left center;
+			transition: 1s linear all;
+			background-repeat: no-repeat; */
+			/* display: inline-block; /* Add this property */
+			/* width: 50%; Adjust the width as needed */ 
+		}
+		div.step.active.two{
+			background-image: url('pitch2.png'); 
+			background-size: contain;
+			background-position: center;
+			transition: 1s linear all;
+			 max-height: 400px;
+			background-repeat: no-repeat; 
+
+			/* background-image: url('pitch2.png');
+			background-size: contain;
+			background-position: left center; Image on the left */
+			/* transition: 1s linear all;
+			background-repeat: no-repeat; */
+			/* display: inline-block; Add this property */
+			/* width: 50%; Adjust the width as needed */
+		}
+		div.step.active.three{
+			background-image: url('pitch3.png');
+			background-size: contain;
+			background-position: center;
+			transition: 1s linear all;
+			background-repeat: no-repeat;
+		}
+		div.step.active.four{
+			background-image: url('pitch4.png');
+			background-size: contain;
+			background-position: center;
+			transition: 1s linear all;
+			/* max-height: 400px; */
+			background-repeat: no-repeat;
+		}
+		div.step.active.five{
+			background-image: url('pitch5.png');
+			background-size: contain;
+			background-position: center;
+			transition: 1s linear all;
+			background-repeat: no-repeat;
+		}
+		div.step.active.six{
+			background-image: url('pitch6.png');
+			background-size: contain;
+			background-position: center;
+			transition: 1s linear all;
+			background-repeat: no-repeat;
+		}
+		/* @keyframes blinker {
+			50% {
+				opacity: 0;
+			}
+		} */
+		div.step.inactive{
+			background: #fff;
+			transition: 1s linear all;
+		}
+	</style>
+
+<h2> <centre> The Art of Coding </centre> </h2>
+</head>
+<body>
+
+	<section>
+
+		<div class="step"></div>
+		<div class="step two"></div>
+		<div class="step three"></div>
+		<div class="step four"></div>
+		<div class="step five"></div>
+		<div class="step six"></div>
+		<div class="step"><p> </p></div>
+	</section>
+
+	<script type="text/javascript">
+		const scroller = scrollama();
+		scroller
+		.setup({
+			step: '.step',
+			// debug: true,
+			offset: 0.25,
+			// once: true
+		})
+		.onStepEnter((response)  => {
+			console.log(response)
+			// response.element.classList.remove(('inactive'));
+			response.element.classList.add(('active'));
+		})
+		// .onStepExit((response) => {
+		// 	console.log(response)
+		// 	response.element.classList.remove(('active'));
+		// 	response.element.classList.add(('inactive'));
+		// });
+
+	</script>
+	
+</body>
+</html>
